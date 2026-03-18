@@ -5,7 +5,6 @@ import seaborn as sns
 from collections import defaultdict
 
 
-# Request statistics tracker
 class RequestStats:
     def __init__(self):
         self.data = []
@@ -52,7 +51,7 @@ class RequestStats:
         if not self.data:
             print("No data to visualize.")
             return
-        # Endpoint counts
+  
         plt.figure(figsize=(10, 6))
         sns.barplot(
             x=list(self.endpoint_counts.keys()), y=list(self.endpoint_counts.values())
@@ -62,7 +61,7 @@ class RequestStats:
         plt.xticks(rotation=45)
         plt.tight_layout()
         plt.show()
-        # Method distribution
+   
         plt.figure(figsize=(6, 4))
         sns.barplot(
             x=list(self.method_counts.keys()), y=list(self.method_counts.values())
@@ -71,7 +70,7 @@ class RequestStats:
         plt.ylabel("Count")
         plt.tight_layout()
         plt.show()
-        # Response times
+ 
         plt.figure(figsize=(8, 4))
         sns.histplot(self.response_times, bins=10, kde=True)
         plt.title("Response Time Distribution")
@@ -83,7 +82,6 @@ class RequestStats:
 stats = RequestStats()
 
 
-# 1. Get users by city
 def get_users_by_city(city):
     url = "https://jsonplaceholder.typicode.com/users"
     params = {"address.city": city}
@@ -101,10 +99,8 @@ def get_users_by_city(city):
         print("No users found in that city.")
 
 
-# 2. Create a new post
 def create_post():
     url = "https://jsonplaceholder.typicode.com/posts"
-    # Get all posts to check for title
     start = time.time()
     resp = requests.get(url)
     elapsed = time.time() - start
@@ -126,7 +122,6 @@ def create_post():
     print("Response:", resp.json())
 
 
-# 3. Update a post
 def update_post():
     postId = input("Enter postId to update: ")
     url = f"https://jsonplaceholder.typicode.com/posts/{postId}"
@@ -150,7 +145,6 @@ def update_post():
     print("Updated post:", resp.json())
 
 
-# 4. Delete a post
 def delete_post():
     while True:
         postId = input("Enter postId to delete: ")
@@ -165,8 +159,6 @@ def delete_post():
         else:
             print(f"Deletion failed (status {resp.status_code}). Try again.")
 
-
-# 5. Statistics and Analysis
 
 
 def main():

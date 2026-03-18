@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gaming Library Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <div class="background-grid" aria-hidden="true"></div>
+
+    <header class="hero">
+        <h1>Gaming Library Tracker</h1>
+        <p>Track your games, progress, ratings, and categories.</p>
+    </header>
+
+    <main class="layout">
+        <section class="panel">
+            <h2>Add New Game</h2>
+            <form id="create-form" class="form-grid">
+                <input name="title" placeholder="Title" required>
+                <input name="platform" placeholder="Platform (PC, PS5...)" required>
+                <input name="genre" placeholder="Genre" required>
+                <input name="hours_played" type="number" min="0" value="0" required>
+                <input name="rating" type="number" min="0" max="10" step="0.1" placeholder="Rating 0-10 (optional)">
+                <select name="completed" required>
+                    <option value="false">Not completed</option>
+                    <option value="true">Completed</option>
+                </select>
+                <select name="category_id" id="create-category" required></select>
+                <button type="submit">Create Game</button>
+            </form>
+        </section>
+
+        <section class="panel">
+            <h2>Filter</h2>
+            <div class="filter-row">
+                <select id="filter-completed">
+                    <option value="">All statuses</option>
+                    <option value="true">Completed</option>
+                    <option value="false">Not completed</option>
+                </select>
+                <select id="filter-category">
+                    <option value="">All categories</option>
+                </select>
+                <button id="apply-filters">Apply</button>
+                <button id="clear-filters" class="muted">Reset</button>
+            </div>
+        </section>
+
+        <section class="panel full-width">
+            <div class="panel-header">
+                <h2>My Games</h2>
+                <span id="status" class="status"></span>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Platform</th>
+                            <th>Genre</th>
+                            <th>Hours</th>
+                            <th>Rating</th>
+                            <th>Completed</th>
+                            <th>Category</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="games-body"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <dialog id="edit-dialog">
+        <form id="edit-form" method="dialog" class="form-grid">
+            <h3>Edit Game</h3>
+            <input type="hidden" name="id">
+            <input name="title" placeholder="Title" required>
+            <input name="platform" placeholder="Platform" required>
+            <input name="genre" placeholder="Genre" required>
+            <input name="hours_played" type="number" min="0" required>
+            <input name="rating" type="number" min="0" max="10" step="0.1" placeholder="Rating 0-10 (optional)">
+            <select name="completed" required>
+                <option value="false">Not completed</option>
+                <option value="true">Completed</option>
+            </select>
+            <select name="category_id" id="edit-category" required></select>
+            <div class="dialog-actions">
+                <button type="button" id="cancel-edit" class="muted">Cancel</button>
+                <button type="submit">Save Changes</button>
+            </div>
+        </form>
+    </dialog>
+
+    <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+</body>
+
+</html>
